@@ -9,7 +9,7 @@ describe "delivery_details/index" do
   end
 
   it "renders a list of delivery_details" do
-    render
+    # render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
   end
 end
