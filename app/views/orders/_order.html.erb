@@ -1,0 +1,16 @@
+<div class="data">
+    <table id="no_border">
+      <tr>
+        <td style="width:5%">To:</td>
+        <td style="width:70%;border-bottom:1px solid #ccc;"><%= @order.customer %></td>
+        <td style="width:5%">OS #:</td>
+        <td style="width:20%;border-bottom:1px solid #ccc;"><%= @order.id %></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td style="border-bottom:1px solid #ccc;"><%= @order.customer.address %></td>
+        <td>Date: </td>
+        <td style="border-bottom:1px solid #ccc;"><%= @order.order_date %></td>
+      </tr>
+    </table>
+</div>

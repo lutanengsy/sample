@@ -1,0 +1,47 @@
+<div id="panel1">
+  <h2 class="center">SAMPLE</h2>
+
+  <br/>
+
+  <%= render @order %>
+
+  <div class="data">
+    <table>
+      <thead>
+        <th>Quantity</th>
+	<th>Unit</th>
+	<th>Product</th>
+	<th>Unit Price</th>
+	<th>Subtotal</th>
+        <% if !@order.delivered? %>
+	  <th id="no_print">Actions</th>
+        <% end %>
+      </thead>
+      <tbody>
+        <%#= render(@order.order_details) %>
+
+        <%#= render :partial => 'order_details/form' if !@order.delivered? %>
+          
+        <tr style="border:none;">
+          <td style="border:none;"></td>
+          <td style="border:none;"></td>
+	  <td style="border:none;" class="right" colspan="2"><b>Total</b></td>
+	  <td style="border:none;" class="right"><b><%= number_to_currency(@order.total_amount, :unit => '') %></b></td>
+	  <% if !@order.delivered? %>
+            <td style="border:none;" id="no_print"></td>
+          <% end %>
+	</tr>
+      </tbody>
+    </table>
+ 
+    <br/>
+        
+    <%= render :partial => 'orders/footer' %>
+  
+    <%= link_to 'Edit', edit_order_path(@order) %> |
+    <%= link_to 'Back', orders_path %>
+  
+  </div>
+</div>
+
+<div class="clear"></div>

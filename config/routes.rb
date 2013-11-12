@@ -1,7 +1,12 @@
 Sample::Application.routes.draw do
 
-  resources :deliveries
+  resources :orders do
+    member do
+      get 'deliver'
+    end
+  end
 
+  resources :deliveries
 
   resources :products
   resources :customers
