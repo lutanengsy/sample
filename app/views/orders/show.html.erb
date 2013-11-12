@@ -18,9 +18,9 @@
         <% end %>
       </thead>
       <tbody>
-        <%#= render(@order.order_details) %>
+        <%= render(@order.order_details) %>
 
-        <%#= render :partial => 'order_details/form' if !@order.delivered? %>
+        <%= render :partial => 'order_details/form' if !@order.delivered? %>
           
         <tr style="border:none;">
           <td style="border:none;"></td>
@@ -37,9 +37,6 @@
     <br/>
         
     <%= render :partial => 'orders/footer' %>
-  
-    <%= link_to 'Edit', edit_order_path(@order) %> |
-    <%= link_to 'Back', orders_path %>
   
   </div>
 </div>

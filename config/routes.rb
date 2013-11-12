@@ -1,6 +1,7 @@
 Sample::Application.routes.draw do
 
   resources :orders do
+    resources :order_details
     member do
       get 'deliver'
     end

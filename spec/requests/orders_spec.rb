@@ -75,5 +75,15 @@ describe "Orders" do
       page.has_content?("Order successfully deleted.")      
     end
 
+    it "can not delete order with order detail" do
+      order  = FactoryGirl.create(:order_without_customer, customer_id: Customer.first.id)
+      detail = order.order_details.create(FactoryGirl.attributes_for(:order_detail, order_id: order.id))
+
+      visit orders_path
+      first(:link, 'Destroy').click
+
+      current_path.should == "/orders"
+      page.has_content?("Unable to delete order.")
+    end
   end
 end

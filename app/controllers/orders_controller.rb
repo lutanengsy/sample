@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_filter 'get_customers', :only => ['new','create','edit','update']
+  before_filter 'get_products',  :only => ['show']
 
   # GET /orders
   # GET /orders.json
@@ -15,11 +16,11 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    @order = Order.includes([:customer]).find(params[:id])
+    @order = Order.includes([:customer,:order_details => :product]).find(params[:id])
     
-#    if !@order.delivered?
-#      @order_detail = @order.order_details.new
-#    end
+    if !@order.delivered?
+      @order_detail = @order.order_details.new
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -79,22 +80,25 @@ class OrdersController < ApplicationController
   # DELETE /orders/1.json
   def destroy
     @order = Order.find(params[:id])
-    @order.destroy    
+    
+    begin
+      @order.destroy
+      message = "Order was successfully deleted."
+    rescue ActiveRecord::DeleteRestrictionError => e
+      #@order.errors.add(:base, e)
+      message = "Order is still in use. Unable to delete order. "
+    end
 
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully deleted' }
+      format.html { redirect_to orders_url, notice: message }
       format.json { head :no_content }
     end
   end
 
   def deliver
-    @order = Order.find(params[:id])
-    @order.deliver!
-
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully delivered.' }
-      format.json { head :no_content }
-    end
+    order = Order.find(params[:id])
+    order.deliver!
+    redirect_to orders_url, notice: "Order was successfully delivered."
   end
 
   private
@@ -103,4 +107,7 @@ class OrdersController < ApplicationController
     @customers = Customer.select("id,name")
   end
 
+  def get_products
+    @products = Product.select("id,name")
+  end
 end

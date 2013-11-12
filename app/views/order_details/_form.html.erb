@@ -1,0 +1,25 @@
+<%= form_for([@order, @order.order_details.build]) do |f| %>
+  <% if @order_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order_detail.errors.count, "error") %> prohibited this order_detail from being saved:</h2>
+
+      <ul>
+      <% @order_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <tr>
+    <td class="center" style="width:80px"><%= f.number_field :quantity, :id => 'narrow' %></td>
+    <td class="center"  style="width:100px"><%= f.text_field :unit, :id => 'narrow' %></td>
+    <td style="width:430px">
+      <%= f.select :product_id, options_from_collection_for_select(@products, "id","name",@order_detail.product_id), :include_blank => true, :class => "focus", :id => 'narrow' %>
+    </td>
+    <td class="right" style="width:100px"><%=  f.text_field :unit_price, :id => 'narrow' %></td>
+    <td></td>
+    <td class="right" style="width:100px"><%= f.submit 'Add', :id => 'narrow' %></td>
+  </tr>
+
+<% end %> 

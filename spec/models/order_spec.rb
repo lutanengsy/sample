@@ -21,6 +21,18 @@ describe Order do
     FactoryGirl.build(:order, amount_paid: "test").should_not be_valid
   end
 
+  it "updates total amount" do
+    order = FactoryGirl.create(:order_detail).order
+    order.update_totals
+    order.total_amount.should == 10.00
+  end
+
+  it "calculates total amount from order details" do
+    order = FactoryGirl.create(:order_detail).order
+    order.update_totals
+    order.total_amount.should == 10.00
+  end
+
   it "marks order as delivered" do
     order = FactoryGirl.create(:order)
     order.delivered.should == false

@@ -119,6 +119,22 @@ describe OrdersController do
 
   describe 'DELETE #destroy' do
 
+    context "has order_details" do
+      before :each do
+        @detail = FactoryGirl.create(:order_detail)
+      end
+
+      it "does not delete the @order" do
+        expect {
+          delete :destroy, id: @detail.order_id
+        }.to_not change(Order, :count)
+      end
+
+      it "redirects to orders#index" do
+        delete :destroy, id: @detail.order_id
+        response.should redirect_to orders_url
+      end
+    end
 
     context "has no order details" do
       before :each do

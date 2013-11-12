@@ -1,0 +1,33 @@
+<table id="no_border" class="signature">
+  <tr>
+    <td style="width:80px;">Prepared By:</td>
+    <td style="border-bottom:1px solid #ccc;">&nbsp;</td>
+    <td style="width:50px">&nbsp;</td>
+    <td style="width:100px;">Received By:</td>
+    <td style="width:300px;border-bottom:1px solid #ccc;">&nbsp;</td>
+    <td style="width:50px">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td class="center">Print Name And Sign</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td >&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>Date:</td>
+    <td style="border-bottom:1px solid #ccc;">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+<div id="no_print">
+  <%= link_to 'Back', orders_path, :class => 'actions' %>
+  <% if !@order.paid? %> 
+    <%= link_to 'Edit', edit_order_path(@order), :class => 'actions' %>
+  <% end %>
+</div>
