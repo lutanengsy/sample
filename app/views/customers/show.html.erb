@@ -1,5 +1,17 @@
-<p id="notice"><%= notice %></p>
-
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+<div id="panel1">
+	<h3><%= @customer.name %></h3>
+	<div class="data">
+		<label>Name</label>: <%= @customer.name %><br/>
+		<label>Address</label>: <%= @customer.address %><br/>
+<%= @customer.zip%><br/>
+		<label>Contact No</label>: <%= @customer.contact_no %><br/>
+		
+		<label>Contact Person</label>: <%= @customer.contact_person %><br/>
+		<label>Terms</label>: <%= @customer.terms %><br/>
+		
+	</div>
+	<div id="actions">
+		<%= link_to 'Back', customers_url, :class => 'actions' %> <%= link_to 'Edit', edit_customer_url(@customer) %>
+	</div>
+</div>
+<div class="clear"></div>
