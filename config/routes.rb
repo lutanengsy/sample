@@ -1,5 +1,8 @@
 Sample::Application.routes.draw do
 
+  resources :deliveries
+
+
   resources :products
   resources :customers
 

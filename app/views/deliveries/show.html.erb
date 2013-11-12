@@ -1,0 +1,10 @@
+
+  <div class="data">
+    <label>Delivery Date</label>: <%= @delivery.delivery_date %><br/>
+    <label>DR No</label>: <%= @delivery.delivery_no %><br/>
+    <label>Total Amount</label>: <%= number_to_currency(@delivery.total_amount,:unit => '') %><br/>
+  </div>
+
+
+<%= link_to 'Edit', edit_delivery_path(@delivery) %> |
+<%= link_to 'Back', deliveries_path %>
