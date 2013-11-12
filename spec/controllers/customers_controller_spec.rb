@@ -134,5 +134,23 @@ describe CustomersController do
       end
     end
 
+    context "do not allow if has order" do
+
+      before :each do
+        @order_detail = FactoryGirl.create(:order_detail)
+      end
+    
+      it "will not delete the customer" do
+        expect {
+          delete :destroy, id: @order_detail.order.customer_id
+        }.to_not change(Customer,:count)
+
+      end
+
+      it "redirects to customer#index" do
+        delete :destroy, id: @order_detail.order.customer_id
+        response.should redirect_to customers_url
+      end
+    end
   end
 end
