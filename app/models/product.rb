@@ -1,6 +1,9 @@
 class Product < ActiveRecord::Base
   attr_accessible :code, :count_per_pack, :name, :price, :size, :srp, :balance
 
+  has_many :order_details,    :dependent => :restrict
+  has_many :delivery_details, :dependent => :restrict
+
   validates :name, :presence => true, :uniqueness => true
   validates :count_per_pack, :price, :numericality => true, :allow_nil => true
   validates :srp, :numericality => true, :allow_nil => true

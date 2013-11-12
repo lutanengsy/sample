@@ -1,4 +1,6 @@
 class DeliveriesController < ApplicationController
+
+  before_filter :get_products, :only => [:show]
   # GET /deliveries
   # GET /deliveries.json
   def index
@@ -14,6 +16,7 @@ class DeliveriesController < ApplicationController
   # GET /deliveries/1.json
   def show
     @delivery = Delivery.find(params[:id])
+    @delivery_detail = @delivery.delivery_details.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -73,11 +76,21 @@ class DeliveriesController < ApplicationController
   # DELETE /deliveries/1.json
   def destroy
     @delivery = Delivery.find(params[:id])
-    @delivery.destroy
+
+     begin
+      @delivery.destroy
+      message = "Delivery was successfully deleted."
+    rescue ActiveRecord::DeleteRestrictionError => e
+      message = "Delivery is still in use. Unable to delete order. "
+    end
 
     respond_to do |format|
-      format.html { redirect_to deliveries_url }
+      format.html { redirect_to deliveries_url, notice: message }
       format.json { head :no_content }
     end
+  end
+
+  def get_products
+    @products = Product.select('id,name')
   end
 end

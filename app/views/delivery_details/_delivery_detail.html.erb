@@ -1,0 +1,16 @@
+<% if !delivery_detail.id.nil? %>
+
+<tr>
+  <td class="center" style="width:80px"><%= delivery_detail.quantity%></td>
+  <td class="center"  style="width:100px"><%= delivery_detail.unit%></td>
+  <td style="width:430px"><%= delivery_detail.product.name%></td>
+  <td class="right" style="width:100px"><%= number_to_currency(delivery_detail.price,:unit => '')%></td>
+  <td class="right" style="width:100px"><% subtotal = delivery_detail.quantity * delivery_detail.price %><%=  number_to_currency(subtotal,:unit=> '') %></td>
+  
+    <td class="center" id="no_print" style="width:50px">
+      <%= link_to 'Edit', edit_delivery_delivery_detail_url(@delivery,delivery_detail) %>
+      <%= link_to 'Delete', delivery_delivery_detail_url(@delivery,delivery_detail), :method => :delete, :confirm => "Are you sure you want to delete detail?"%>
+    </td>
+</tr>
+
+<% end %>

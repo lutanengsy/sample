@@ -7,7 +7,9 @@ Sample::Application.routes.draw do
     end
   end
 
-  resources :deliveries
+  resources :deliveries do
+    resources :delivery_details
+  end
 
   resources :products
   resources :customers

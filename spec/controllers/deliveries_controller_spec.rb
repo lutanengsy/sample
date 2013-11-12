@@ -141,5 +141,21 @@ describe DeliveriesController do
       end
     end
 
+    context "do not allow delete without details" do
+      before :each do
+        @detail = FactoryGirl.create(:delivery_detail)
+      end
+
+      it "does not delete delivery" do
+        expect {
+          delete :destroy, id: @detail.delivery_id
+        }.to_not change(Delivery, :count)
+      end
+
+      it "redirects to deliveries#index" do
+          delete :destroy, id: @detail.delivery_id
+          response.should redirect_to deliveries_url
+      end
+    end
   end
 end

@@ -1,0 +1,21 @@
+<h1>Listing delivery_details</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @delivery_details.each do |delivery_detail| %>
+  <tr>
+    <td><%= link_to 'Show', delivery_detail %></td>
+    <td><%= link_to 'Edit', edit_delivery_detail_path(delivery_detail) %></td>
+    <td><%= link_to 'Destroy', delivery_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Delivery detail', new_delivery_detail_path %>

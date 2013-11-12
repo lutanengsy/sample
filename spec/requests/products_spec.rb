@@ -64,7 +64,25 @@ describe "Products" do
       page.has_content?("Product successfully deleted.")      
     end
 
+    it "can not delete product with delivery details" do
+      detail = FactoryGirl.create(:delivery_detail, product_id: Product.first.id)
 
+      visit products_path
+      first(:link, 'Destroy').click
+
+      current_path.should == "/products"
+      page.has_content?("Unable to delete product.")      
+    end
+
+    it "can not delete product with order details" do
+      detail = FactoryGirl.create(:order_detail, product_id: Product.first.id)
+
+      visit products_path
+      first(:link, 'Destroy').click
+
+      current_path.should == "/products"
+      page.has_content?("Unable to delete product.")      
+    end
   end
 
 end

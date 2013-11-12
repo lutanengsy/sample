@@ -1,0 +1,23 @@
+<%= form_for([@delivery,@delivery.delivery_details.build]) do |f| %>
+  <% if @delivery_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@delivery_detail.errors.count, "error") %> prohibited this delivery_detail from being saved:</h2>
+
+      <ul>
+      <% @delivery_detail.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <tr>
+      <td style="width:50px" id="no_print"><%= f.number_field :quantity, {:id => 'narrow'} %></td>
+      <td style="width:50px"  id="no_print"><%= f.text_field :unit, :id => 'narrow' %></td>
+      <td id="no_print"><%= f.select :product_id, options_from_collection_for_select(@products,"id","name"), {:include_blank => true} %></td>
+      <td style="width:80px" id="no_print"><span id="unit_price"><%= f.text_field :price, :style => "width:100px" %></span></td>
+      <td></td>
+      <td class="center" style="width:100px"><%= f.submit 'Add', :id => 'narrow' %></td>
+    </tr>  
+
+<% end %>
