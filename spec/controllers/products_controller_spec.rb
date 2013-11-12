@@ -134,6 +134,39 @@ describe ProductsController do
       end
     end
 
+    context "do not allow delete if with order detail" do
+      before :each do
+        @order_detail = FactoryGirl.create(:order_detail)
+      end
+
+      it "does not delete the product" do
+        expect {
+          delete :destroy, id: @order_detail.product_id
+        }.to_not change(Product,:count)
+      end
+
+      it "redirects to products#index" do
+        delete :destroy, id: @order_detail.product_id
+        response.should redirect_to products_url
+      end
+    end
+    
+    context "do not allow delete if with delivery detail" do
+      before :each do
+        @delivery_detail = FactoryGirl.create(:delivery_detail)
+      end
+
+      it "does not delete the product" do
+        expect {
+          delete :destroy, id: @delivery_detail.product_id
+        }.to_not change(Product,:count)
+      end
+
+      it "redirects to products#index" do
+        delete :destroy, id: @delivery_detail.product_id
+        response.should redirect_to products_url
+      end
+    end
 
   end
 end
