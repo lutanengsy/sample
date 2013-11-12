@@ -14,6 +14,7 @@ body {
 	font-family:Arial, Helvetica, sans-serif; 
 }
 
+h1 {padding-bottom:1em; }
 ul li { list-style:none; }
 a { display:inline-block;text-decoration:none;color:#1133AA; }
 form { padding:0px;line-height:2em; }
@@ -78,8 +79,8 @@ table.lists td#actions { width:150px;text-align:center; }
 table#no_border, table#no_border th, table#no_border td { border:none; }
 /*table#borders, table#no_border th, table#no_border td { border:1px solid #ccc; }*/
 
-table#customers, table#products, table#orders, table#inventories, table#payments {clear:both;margin-top:10px;}
-#customers_wrapper, #products_wrapper, #orders_wrapper, #inventories_wrapper, #payments_wrapper {padding:0;}
+table#customers, table#products, table#orders, table#inventories, table#payments, table#deliveries {clear:both;margin-top:10px;}
+#customers_wrapper, #products_wrapper, #orders_wrapper, #inventories_wrapper, #payments_wrapper, #deliveries_wrapper {padding:0;}
 #customers_info, #products_info, #orders_info, #inventories_info, #payments_info {margin-top:10px;margin-bottom:10px;}
 
 table.no_borders, table.no_borders th, table.no_borders td {border:none;width:auto;}
