@@ -73,7 +73,13 @@ class ProductsController < ApplicationController
   # DELETE /products/1.json
   def destroy
     @product = Product.find(params[:id])
-    @product.destroy
+
+    begin
+      @product.destroy
+      message = "Product was successfully deleted."
+    rescue ActiveRecord::DeleteRestrictionError => e
+      message = "Product is still in use. Unable to delete product. "
+    end
 
     respond_to do |format|
       format.html { redirect_to products_url }
