@@ -1,5 +1,7 @@
 Sample::Application.routes.draw do
 
+  resources :inventories
+
   resources :orders do
     resources :order_details
     member do

@@ -1,0 +1,26 @@
+<h1>Listing inventories</h1>
+
+<table id="inventories">
+  <thead>
+    <th>Product</th>
+    <th>Size</th>
+    <th>Count Per Pack</th>
+    <th>Price</th>
+    <th>Balance</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <% @products.each do |i| %>
+      <tr>
+	<td class="center"><%= i.name %></td>
+	<td class="center"><%= i.size %></td>
+	<td class="center"><%= i.count_per_pack %></td>
+	<td class="center"><%= i.price %></td>
+	<td class="center"><%= i.balance %></td>
+	<td class="center"><%= link_to 'Show', inventory_url(i) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="clear"></div>

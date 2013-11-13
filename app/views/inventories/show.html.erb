@@ -1,0 +1,20 @@
+<h1><%= @product %></h1>
+
+<table id="inventories">
+  <thead>
+    <th>Document No</th>
+    <th>Quantity In</th>
+    <th>Quantity Out</th>
+  </thead>
+  <tbody>
+    <% @inventories.each do |i| %>
+      <tr>
+	<td class="center"><%= i.doc_no %></td>
+	<td class="center"><%= i.qty_in %></td>
+	<td class="center"><%= i.qty_out %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="clear"></div>
