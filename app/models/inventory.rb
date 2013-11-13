@@ -6,5 +6,20 @@ class Inventory < ActiveRecord::Base
 
   belongs_to :product
 
-  
+  def self.add_entry(doc_no, product, qty_in, qty_out)
+    create(doc_no: doc_no, product_id: product, qty_in: qty_in, qty_out: qty_out)
+  end
+
+  def self.remove_entry(doc_no, product, qty_in, qty_out)
+    inv = find_entry(doc_no, product, qty_in, qty_out)
+    inv.delete if inv
+  end
+
+  def self.find_entry(doc_no, product, qty_in, qty_out)
+    where(:doc_no => doc_no, :product_id => product, :qty_in => qty_in, :qty_out => qty_out).first
+  end
+
+  def update_entry(qty_in, qty_out)
+    update_attributes(:qty_in => qty_in, :qty_out => qty_out)
+  end
 end

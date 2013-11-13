@@ -24,6 +24,21 @@ describe DeliveryDetailsController do
         }.to change(DeliveryDetail, :count).by(1)
       end
 
+      it "updates product balance" do
+        @product.balance.should == 0
+
+        post :create, delivery_id: @delivery.id, delivery_detail: FactoryGirl.attributes_for(:delivery_detail, product_id: @product.id, quantity: 5)
+
+        @product.reload
+        @product.balance.should == 5
+      end
+
+      it "adds inventory entry" do
+        expect {
+          post :create, delivery_id: @delivery.id, delivery_detail: FactoryGirl.attributes_for(:delivery_detail, product_id: @product.id, quantity: 5)
+        }.to change(Inventory, :count).by(1)
+      end
+
       it "redirects to delivery #show" do
         post :create, delivery_id: @delivery.id, delivery_detail: FactoryGirl.attributes_for(:delivery_detail, product_id: @product.id)
         response.should redirect_to delivery_path(@delivery.id)
@@ -40,6 +55,9 @@ describe DeliveryDetailsController do
           post :create, delivery_id: @delivery.id, delivery_detail: FactoryGirl.attributes_for(:delivery_detail)
         }.to_not change(DeliveryDetail, :count)
       end
+
+      it "does not change product balance"
+      it "does not add an inventory entry"
 
       it "renders order #show page" do
         post :create, delivery_id: @delivery.id, delivery_detail: FactoryGirl.attributes_for(:delivery_detail)
@@ -93,7 +111,8 @@ describe DeliveryDetailsController do
 
   describe "DELETE #destroy" do
     before :each do
-      @detail   = FactoryGirl.create(:delivery_detail)
+      @product  = FactoryGirl.create(:product)
+      @detail   = FactoryGirl.create(:delivery_detail, product_id: @product.id, quantity: 5)
       @delivery = @detail.delivery
     end 
 
@@ -101,6 +120,21 @@ describe DeliveryDetailsController do
       expect {
         delete :destroy, delivery_id: @delivery.id, id: @detail.id
       }.to change(DeliveryDetail, :count).by(-1)
+    end
+
+    it "updates product balance" do
+      @product.balance.should == 5
+
+      delete :destroy, delivery_id: @delivery.id, id: @detail.id
+     
+      @product.reload
+      @product.balance.should == 0
+    end
+
+    it "removes inventory entry" do
+      expect {
+        delete :destroy, delivery_id: @delivery.id, id: @detail.id
+      }.to change(Inventory, :count).by(-1)
     end
 
     it "redirects to delivery#index" do
