@@ -8,6 +8,19 @@ gem 'rails', '3.2.12'
 gem 'mysql2'
 gem 'jquery-rails'
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'simplecov'
+  gem 'launchy'
+end
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -34,3 +47,5 @@ end
 
 # To use debugger
 # gem 'debugger'
+
+ruby '1.9.2'
