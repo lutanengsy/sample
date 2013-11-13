@@ -141,7 +141,7 @@ describe DeliveriesController do
       end
     end
 
-    context "do not allow delete without details" do
+    context "do not allow delete with details" do
       before :each do
         @detail = FactoryGirl.create(:delivery_detail)
       end

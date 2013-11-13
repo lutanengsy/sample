@@ -43,7 +43,7 @@ describe "DeliveryDetails" do
   describe "GET delivery/:delivery_id/delivery_details/:id" do
     it "edits delivery detail" do
       visit delivery_path(@delivery.id)
-save_and_open_page
+
       first(:link, 'Edit').click
 
       current_path.should == "/deliveries/#{@delivery.id}/delivery_details/#{@detail.id}/edit"

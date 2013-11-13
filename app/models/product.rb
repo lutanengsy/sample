@@ -3,6 +3,7 @@ class Product < ActiveRecord::Base
 
   has_many :order_details,    :dependent => :restrict
   has_many :delivery_details, :dependent => :restrict
+  has_many :inventories,      :dependent => :restrict
 
   validates :name, :presence => true, :uniqueness => true
   validates :count_per_pack, :price, :numericality => true, :allow_nil => true

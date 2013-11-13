@@ -97,15 +97,17 @@ describe OrderDetailsController do
       @order  = @detail.order
     end 
 
-    it "deletes the order detail" do
-      expect {
-        delete :destroy, order_id: @order.id, id: @detail.id
-      }.to change(OrderDetail, :count).by(-1)
-    end
+    context "allow delete" do
+      it "deletes the order detail" do
+        expect {
+          delete :destroy, order_id: @order.id, id: @detail.id
+        }.to change(OrderDetail, :count).by(-1)
+      end
 
-    it "redirects to orders#index" do
-      delete :destroy, order_id: @order.id, id: @detail.id
-      response.should redirect_to order_path(@order)
+      it "redirects to orders#index" do
+        delete :destroy, order_id: @order.id, id: @detail.id
+        response.should redirect_to order_path(@order)
+      end
     end
 
   end 

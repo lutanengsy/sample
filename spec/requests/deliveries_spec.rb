@@ -46,7 +46,7 @@ describe "Deliveries" do
 
       first(:link, 'Edit').click
       current_path.should == "/deliveries/#{@delivery.id}/edit"
-save_and_open_page
+
       fill_in "delivery_delivery_no", :with => "DR234"
       click_button "Save"
 
@@ -63,6 +63,17 @@ save_and_open_page
 
       current_path.should == "/deliveries"
       page.has_content?("Delivery successfully deleted.")      
+    end
+
+    it "can not delete delivery with delivery detail" do
+      detail   = FactoryGirl.create(:delivery_detail)
+      delivery = detail.delivery
+
+      visit deliveries_path
+      first(:link, 'Destroy').click
+
+      current_path.should == "/deliveries"
+      page.has_content?("Unable to delete delivery.")
     end
 
   end
