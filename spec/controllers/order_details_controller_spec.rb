@@ -15,13 +15,28 @@ describe OrderDetailsController do
     context "with valid attributes" do
       before :each do
         @order = FactoryGirl.create(:order)
-        @product = FactoryGirl.create(:product)
+        @product = FactoryGirl.create(:product, balance: 10)
       end 
 
       it "creates a new detail entry" do
         expect {
           post :create, order_id: @order.id, order_detail: FactoryGirl.attributes_for(:order_detail, product_id: @product.id)
         }.to change(OrderDetail, :count).by(1)
+      end
+
+      it "updates product balance" do
+        @product.balance.should == 10
+
+        post :create, order_id: @order.id, order_detail: FactoryGirl.attributes_for(:order_detail, product_id: @product.id, quantity: 5)
+
+        @product.reload
+        @product.balance.should == 5
+      end
+
+      it "adds inventory entry" do
+        expect {
+          post :create, order_id: @order.id, order_detail: FactoryGirl.attributes_for(:order_detail, product_id: @product.id, quantity: 5)
+        }.to change(Inventory, :count).by(1)
       end
 
       it "redirects to order #show" do
@@ -93,7 +108,8 @@ describe OrderDetailsController do
 
   describe "DELETE #destroy" do
     before :each do
-      @detail = FactoryGirl.create(:order_detail)
+      @product  = FactoryGirl.create(:product, balance: 10)
+      @detail = FactoryGirl.create(:order_detail, quantity: 5, product_id: @product.id)
       @order  = @detail.order
     end 
 
@@ -103,6 +119,22 @@ describe OrderDetailsController do
           delete :destroy, order_id: @order.id, id: @detail.id
         }.to change(OrderDetail, :count).by(-1)
       end
+
+    it "updates product balance" do
+      @product.balance.should == 10
+
+      delete :destroy, order_id: @order.id, id: @detail.id
+     
+      @product.reload
+      @product.balance.should == 10
+    end
+
+    it "removes inventory entry" do
+      expect {
+        delete :destroy, order_id: @order.id, id: @detail.id
+      }.to change(Inventory, :count).by(-1)
+    end
+
 
       it "redirects to orders#index" do
         delete :destroy, order_id: @order.id, id: @detail.id
