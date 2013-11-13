@@ -66,6 +66,16 @@ describe "Customers" do
       page.has_content?("Customer successfully deleted.")      
     end
 
+    it "can not delete customer with order" do
+      order = FactoryGirl.create(:order, customer_id: @customer.id)
+
+      visit customers_path
+      first(:link, 'Destroy').click
+
+      current_path.should == "/customers"
+      page.has_content?("Unable to delete customer.")      
+    end
+
   end
 
 end
