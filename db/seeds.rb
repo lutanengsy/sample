@@ -7,3 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Customer.create(name: 'John Doe')
+Product.create(name: 'Apples')
